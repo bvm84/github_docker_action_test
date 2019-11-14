@@ -9,6 +9,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Checkout repo
+      uses: actions/checkout@v1
+    - name: Build and push the Docker image
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_PASS }}
+      run: |
+        docker build . --file Dockerfile --tag $DOCKER_USERNAME/github_test:latest
+        docker login docker.com --username $DOCKER_USERNAME --password DOCKER_PASSWORD
+        docker push $DOCKER_USERNAME/github_test:latest
