@@ -21,5 +21,6 @@ jobs:
         docker build . --file Dockerfile -t $DOCKER_USERNAME/github_test:$Build_timestamp
         docker tag $DOCKER_USERNAME/github_test:$Build_timestamp $DOCKER_USERNAME/github_test:latest
         rm -f ~/.docker/config.json
+        rm -f $HOME/.docker/config.json
         docker login docker.com --username $DOCKER_USERNAME --password DOCKER_PASSWORD
         docker push $DOCKER_USERNAME/github_test:latest
