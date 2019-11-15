@@ -17,6 +17,8 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_PASS }}
       run: |
         echo $DOCKER_USERNAME
-        docker build . --file Dockerfile --tag $DOCKER_USERNAME/github_test:latest
+        echo $(date +%s)
+        docker build . --file Dockerfile -t $DOCKER_USERNAME/github_test:$(date +%s)
         docker login docker.com --username $DOCKER_USERNAME --password DOCKER_PASSWORD
+        docker tag $DOCKER_USERNAME/github_test:$(date +%s) $DOCKER_USERNAME/github_test:latest
         docker push $DOCKER_USERNAME/github_test:latest
