@@ -1,30 +1,15 @@
-name: Docker Image CI
-
+name: Publish Docker
 on: [push]
-
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v1
-    - name: Build and push the Docker image
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_PASS }}
-      run: |
-        echo $DOCKER_USERNAME
-        Build_timestamp=$(date +%s)
-        sudo apt uninstall docker
-        sudo apt install docker
-        sudo systemctl restart docker
-        docker build . --file Dockerfile -t bvm84/github_test:$Build_timestamp
-        docker tag bvm84/github_test:$Build_timestamp bvm84/github_test:latest
-        sudo rm -f ~/.docker/config.json
-        sudo rm -f $HOME/.docker/config.json
-        sudo docker login docker.com --username bvm84 --password DOCKER_PASSWORD
-        sudo docker images
-        sudo docker push bvm84/github_test:latest
+    - uses: actions/checkout@master
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: ${{ secrets.DOCKER_HUB_USERNAME }}/github_test
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_PASS }}
+        registry: docker.com
+        dockerfile: Dockerfile
