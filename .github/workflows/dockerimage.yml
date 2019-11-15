@@ -15,10 +15,12 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_PASS }}
-        BUILD_TIME: ${{ $(date +%s) }}
+        BUILD_TIME: $(date +%s)
       run: |
         echo $DOCKER_USERNAME
+        echo $(date +%s)
         echo $BUILD_TIME
+
         docker build . --file Dockerfile -t $DOCKER_USERNAME/github_test:$BUILD_TIME
         docker login docker.com --username $DOCKER_USERNAME --password DOCKER_PASSWORD
         docker tag $DOCKER_USERNAME/github_test:$BUILD_TIME $DOCKER_USERNAME/github_test:latest
