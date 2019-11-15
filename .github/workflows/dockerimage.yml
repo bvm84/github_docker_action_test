@@ -22,6 +22,7 @@ jobs:
         docker tag bvm84/github_test:$Build_timestamp bvm84/github_test:latest
         sudo rm -f ~/.docker/config.json
         sudo rm -f $HOME/.docker/config.json
+        sudo systemctl restart docker
         sudo docker login docker.com --username bvm84 --password DOCKER_PASSWORD
         sudo docker images
         sudo docker push bvm84/github_test:latest
