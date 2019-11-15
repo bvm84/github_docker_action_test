@@ -18,9 +18,9 @@ jobs:
       run: |
         echo $DOCKER_USERNAME
         Build_timestamp=$(date +%s)
-        docker build . --file Dockerfile -t $DOCKER_USERNAME/github_test:$Build_timestamp
-        docker tag $DOCKER_USERNAME/github_test:$Build_timestamp $DOCKER_USERNAME/github_test:latest
+        docker build . --file Dockerfile -t bvm84/github_test:$Build_timestamp
+        docker tag bvm84/github_test:$Build_timestamp bvm84/github_test:latest
         sudo rm -f ~/.docker/config.json
         sudo rm -f $HOME/.docker/config.json
         sudo docker login docker.com --username $DOCKER_USERNAME --password DOCKER_PASSWORD
-        sudo docker push $DOCKER_USERNAME/github_test:latest
+        sudo docker push bvm84/github_test:latest
