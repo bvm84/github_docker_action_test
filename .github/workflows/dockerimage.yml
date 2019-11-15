@@ -19,6 +19,6 @@ jobs:
         echo $DOCKER_USERNAME
         Build_timestamp=$(date +%s)
         docker build . --file Dockerfile -t $DOCKER_USERNAME/github_test:$Build_timestamp
-        docker login docker.com --username $DOCKER_USERNAME --password DOCKER_PASSWORD
         docker tag $DOCKER_USERNAME/github_test:$Build_timestamp $DOCKER_USERNAME/github_test:latest
+        docker login docker.io --username $DOCKER_USERNAME --password DOCKER_PASSWORD
         docker push $DOCKER_USERNAME/github_test:latest
