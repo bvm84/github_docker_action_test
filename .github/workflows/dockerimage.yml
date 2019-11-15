@@ -15,7 +15,7 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_PASS }}
-        BUILD_TIME: "{{ $(date +%s) }}"
+        BUILD_TIME: ${{ $(date +%s) }}
       run: |
         echo $DOCKER_USERNAME
         echo $BUILD_TIME
